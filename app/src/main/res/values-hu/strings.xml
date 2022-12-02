@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bevásárlólista</string>
+    <string name="action_settings">Beállítások</string>
+    <string name="add_button_text">Hozzáad</string>
+    <string name="item_editText_hint">Új elem hozzáadása</string>
+    <string name="item_pcs">db</string>
+    <string name="itemAleradyExists1">Létező elem!</string>
+    <string name="itemAleradyExists2">Ez az elem már létezik!</string>
+    <string name="editItem">Szerkesztés</string>
+    <string name="removeItem">Törlés</string>
+</resources>
