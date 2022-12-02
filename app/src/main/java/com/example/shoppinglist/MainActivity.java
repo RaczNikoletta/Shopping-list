@@ -331,29 +331,34 @@ public class MainActivity extends AppCompatActivity {
                 pw.showAtLocation(this.findViewById(R.id.linlay), Gravity.CENTER, 0, 0);
                 return true;
             case R.id.option_2:
-                StringBuilder option= new StringBuilder();
-                if(!splitedClicked[1].equals("--")) {
-                    if(splitedClicked.length>=3) {
-                        for (int i = 1; i < splitedClicked.length; i++) {
-                            if(i == 1) {
-                                option.append(splitedClicked[i]);
+                try {
+                    StringBuilder option = new StringBuilder();
+                    if (!splitedClicked[1].equals("--")) {
+                        if (splitedClicked.length >= 3) {
+                            for (int i = 1; i < splitedClicked.length; i++) {
+                                if (i == 1) {
+                                    option.append(splitedClicked[i]);
+                                } else {
+                                    option.append(" ").append(splitedClicked[i]);
+                                }
                             }
-                            else{
-                                option.append(" ").append(splitedClicked[i]);
-                            }
+                            find = ShoppingRealm.where(DataModel.class).equalTo("name", option.toString()).findFirst();
+                        } else {
+                            find = ShoppingRealm.where(DataModel.class).equalTo("name", splitedClicked[1]).findFirst();
                         }
-                        find = ShoppingRealm.where(DataModel.class).equalTo("name", option.toString()).findFirst();
-                    }else{
-                        find = ShoppingRealm.where(DataModel.class).equalTo("name", splitedClicked[1]).findFirst();
+                    } else {
+                        find = ShoppingRealm.where(DataModel.class).equalTo("name", "").findFirst();
                     }
-                }else{
-                    find = ShoppingRealm.where(DataModel.class).equalTo("name", "").findFirst();
+                    ShoppingRealm.executeTransaction(r -> {
+                        find.deleteFromRealm();
+                        finish();
+                        startActivity(getIntent());
+                    });
+                    // if the string is not found
+                }catch(NullPointerException e)
+                {
+                    Toast.makeText(mcontext,"String not found: "+e.toString(),Toast.LENGTH_LONG).show();
                 }
-                ShoppingRealm.executeTransaction(r-> {
-                    find.deleteFromRealm();
-                    finish();
-                    startActivity(getIntent());
-                });
 
                 return true;
             default:
